@@ -1,0 +1,233 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FacturacionDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="CUSTOMER">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RNC_ID_NUMBER" Type="Int32" Nullable="false" />
+    <Property Name="CUSTOMER_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PHONE_NUMBER" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="EMAIL" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CATEGORY" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="INVOICES" Relationship="Self.FK_INVOICE_CUSTOMERS" FromRole="CUSTOMERS" ToRole="INVOICES" />
+  </EntityType>
+  <EntityType Name="INVOICE_ITEMS">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="INVOICE_ID" Type="Int32" Nullable="false" />
+    <Property Name="PRODUCT_ID" Type="Int32" Nullable="false" />
+    <Property Name="QUANTITY" Type="Int32" Nullable="false" />
+    <Property Name="TOTAL_PRICE" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <NavigationProperty Name="INVOICE" Relationship="Self.FK_INVOICE_INVOICE_ITEMS" FromRole="INVOICE_ITEMS" ToRole="INVOICES" />
+    <NavigationProperty Name="PRODUCT" Relationship="Self.FK_INVOICE_ITEMS_PRODUCTS" FromRole="INVOICE_ITEMS" ToRole="PRODUCTS" />
+    <Property Name="discount" Type="Decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="INVOICE">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CUSTOMER_ID" Type="Int32" Nullable="false" />
+    <Property Name="INVOICE_DATE" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="INVOICE_TOTAL" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <NavigationProperty Name="CUSTOMER" Relationship="Self.FK_INVOICE_CUSTOMERS" FromRole="INVOICES" ToRole="CUSTOMERS" />
+    <NavigationProperty Name="INVOICE_ITEMS" Relationship="Self.FK_INVOICE_INVOICE_ITEMS" FromRole="INVOICES" ToRole="INVOICE_ITEMS" />
+    <Property Name="Discount" Type="Decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="PRODUCT">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PRODUCT_NAME" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UNIT_PRICE" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <NavigationProperty Name="INVOICE_ITEMS" Relationship="Self.FK_INVOICE_ITEMS_PRODUCTS" FromRole="PRODUCTS" ToRole="INVOICE_ITEMS" />
+    <NavigationProperty Name="STOCKs" Relationship="Self.FK_STOCK_PRODUCTS" FromRole="PRODUCTS" ToRole="STOCK" />
+    <NavigationProperty Name="STOCK_ENTRY" Relationship="Self.FK_STOCKENTRY_PRODUCTS" FromRole="PRODUCTS" ToRole="STOCK_ENTRY" />
+    <Property Name="UNIT_MEASUREMENT" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="STOCK">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PRODUCT_ID" Type="Int32" Nullable="false" />
+    <Property Name="QUANTITY" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="PRODUCT" Relationship="Self.FK_STOCK_PRODUCTS" FromRole="STOCK" ToRole="PRODUCTS" />
+  </EntityType>
+  <EntityType Name="STOCK_ENTRY">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PRODUCT_ID" Type="Int32" Nullable="false" />
+    <Property Name="SUPPLIER_ID" Type="Int32" Nullable="false" />
+    <Property Name="QUANTITY" Type="Int32" Nullable="false" />
+    <Property Name="ENTRY_DATE" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="PRODUCT" Relationship="Self.FK_STOCKENTRY_PRODUCTS" FromRole="STOCK_ENTRY" ToRole="PRODUCTS" />
+    <NavigationProperty Name="SUPPLIER" Relationship="Self.FK_STOCKENTRY_SUPPLIERS" FromRole="STOCK_ENTRY" ToRole="SUPPLIERS" />
+  </EntityType>
+  <EntityType Name="SUPPLIER">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RNC_ID_NUMBER" Type="Int32" Nullable="false" />
+    <Property Name="SUPPLIER_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PHONE_NUMBER" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="EMAIL" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="STOCK_ENTRY" Relationship="Self.FK_STOCKENTRY_SUPPLIERS" FromRole="SUPPLIERS" ToRole="STOCK_ENTRY" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_INVOICE_CUSTOMERS">
+    <End Role="CUSTOMERS" Type="Self.CUSTOMER" Multiplicity="1" />
+    <End Role="INVOICES" Type="Self.INVOICE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CUSTOMERS">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="INVOICES">
+        <PropertyRef Name="CUSTOMER_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_INVOICE_INVOICE_ITEMS">
+    <End Role="INVOICES" Type="Self.INVOICE" Multiplicity="1" />
+    <End Role="INVOICE_ITEMS" Type="Self.INVOICE_ITEMS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="INVOICES">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="INVOICE_ITEMS">
+        <PropertyRef Name="INVOICE_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_INVOICE_ITEMS_PRODUCTS">
+    <End Role="PRODUCTS" Type="Self.PRODUCT" Multiplicity="1" />
+    <End Role="INVOICE_ITEMS" Type="Self.INVOICE_ITEMS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PRODUCTS">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="INVOICE_ITEMS">
+        <PropertyRef Name="PRODUCT_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_STOCK_PRODUCTS">
+    <End Role="PRODUCTS" Type="Self.PRODUCT" Multiplicity="1" />
+    <End Role="STOCK" Type="Self.STOCK" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PRODUCTS">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="STOCK">
+        <PropertyRef Name="PRODUCT_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_STOCKENTRY_PRODUCTS">
+    <End Role="PRODUCTS" Type="Self.PRODUCT" Multiplicity="1" />
+    <End Role="STOCK_ENTRY" Type="Self.STOCK_ENTRY" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PRODUCTS">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="STOCK_ENTRY">
+        <PropertyRef Name="PRODUCT_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_STOCKENTRY_SUPPLIERS">
+    <End Role="SUPPLIERS" Type="Self.SUPPLIER" Multiplicity="1" />
+    <End Role="STOCK_ENTRY" Type="Self.STOCK_ENTRY" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SUPPLIERS">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="STOCK_ENTRY">
+        <PropertyRef Name="SUPPLIER_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="FacturacionDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="CUSTOMERS" EntityType="Self.CUSTOMER" />
+    <EntitySet Name="INVOICE_ITEMS" EntityType="Self.INVOICE_ITEMS" />
+    <EntitySet Name="INVOICES" EntityType="Self.INVOICE" />
+    <EntitySet Name="PRODUCTS" EntityType="Self.PRODUCT" />
+    <EntitySet Name="STOCKs" EntityType="Self.STOCK" />
+    <EntitySet Name="STOCK_ENTRY" EntityType="Self.STOCK_ENTRY" />
+    <EntitySet Name="SUPPLIERS" EntityType="Self.SUPPLIER" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <AssociationSet Name="FK_INVOICE_CUSTOMERS" Association="Self.FK_INVOICE_CUSTOMERS">
+      <End Role="CUSTOMERS" EntitySet="CUSTOMERS" />
+      <End Role="INVOICES" EntitySet="INVOICES" />
+    </AssociationSet>
+    <AssociationSet Name="FK_INVOICE_INVOICE_ITEMS" Association="Self.FK_INVOICE_INVOICE_ITEMS">
+      <End Role="INVOICES" EntitySet="INVOICES" />
+      <End Role="INVOICE_ITEMS" EntitySet="INVOICE_ITEMS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_INVOICE_ITEMS_PRODUCTS" Association="Self.FK_INVOICE_ITEMS_PRODUCTS">
+      <End Role="PRODUCTS" EntitySet="PRODUCTS" />
+      <End Role="INVOICE_ITEMS" EntitySet="INVOICE_ITEMS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_STOCK_PRODUCTS" Association="Self.FK_STOCK_PRODUCTS">
+      <End Role="PRODUCTS" EntitySet="PRODUCTS" />
+      <End Role="STOCK" EntitySet="STOCKs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_STOCKENTRY_PRODUCTS" Association="Self.FK_STOCKENTRY_PRODUCTS">
+      <End Role="PRODUCTS" EntitySet="PRODUCTS" />
+      <End Role="STOCK_ENTRY" EntitySet="STOCK_ENTRY" />
+    </AssociationSet>
+    <AssociationSet Name="FK_STOCKENTRY_SUPPLIERS" Association="Self.FK_STOCKENTRY_SUPPLIERS">
+      <End Role="SUPPLIERS" EntitySet="SUPPLIERS" />
+      <End Role="STOCK_ENTRY" EntitySet="STOCK_ENTRY" />
+    </AssociationSet>
+    <FunctionImport Name="GetSales" ReturnType="Collection(FacturacionDBModel.GetSales_Result)" />
+    <FunctionImport Name="GetStockData" ReturnType="Collection(FacturacionDBModel.GetStockData_Result)" />
+    <FunctionImport Name="GetStockEntryData" ReturnType="Collection(FacturacionDBModel.GetStockEntryData_Result)" />
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+  </EntityContainer>
+  <ComplexType Name="GetSales_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="Id1" Nullable="false" />
+    <Property Type="String" Name="PRODUCT_NAME" Nullable="false" MaxLength="30" />
+    <Property Type="Decimal" Name="UNIT_PRICE" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Int32" Name="QUANTITY" Nullable="false" />
+    <Property Type="String" Name="CUSTOMER_NAME" Nullable="false" MaxLength="50" />
+    <Property Type="DateTime" Name="INVOICE_DATE" Nullable="false" />
+    <Property Type="Int32" Name="TOTAL_PRICE" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="GetStockData_Result">
+    <Property Type="Int32" Name="PRODUCT_ID" Nullable="false" />
+    <Property Type="String" Name="PRODUCT_NAME" Nullable="false" MaxLength="30" />
+    <Property Type="Decimal" Name="UNIT_PRICE" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Int32" Name="QUANTITY" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="GetStockEntryData_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="PRODUCT_NAME" Nullable="false" MaxLength="30" />
+    <Property Type="Decimal" Name="UNIT_PRICE" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Int32" Name="QUANTITY" Nullable="false" />
+    <Property Type="String" Name="SUPPLIER_NAME" Nullable="false" MaxLength="50" />
+    <Property Type="DateTime" Name="ENTRY_DATE" Nullable="false" />
+  </ComplexType>
+</Schema>

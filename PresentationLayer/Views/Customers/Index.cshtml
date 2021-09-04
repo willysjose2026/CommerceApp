@@ -1,0 +1,75 @@
+﻿@model IEnumerable<EntityLayer.CUSTOMER>
+
+@{
+    ViewBag.Title = "Lista de clientes";
+}
+
+
+
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand">Listado de clientes</a>
+            <form class="d-flex" action="/Customers/Search">
+                <input class="form-control me-2" type="search" name="customer_name" placeholder="Buscar cliente" aria-label="Search">
+                <button class="btn btn-dark" type="submit">Buscar</button>
+            </form>
+        </div>
+    </nav>
+    <div class="container-lg">
+        <br>
+        <br>
+        <div class="d-flex justify-content-left">
+            <div class="row">
+                <br>
+                @Html.ActionLink("Añadir Cliente", "Create", null, htmlAttributes: new { @class = "btn btn-dark" })
+            </div>
+            
+        </div>
+<br>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.RNC_ID_NUMBER)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CUSTOMER_NAME)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PHONE_NUMBER)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EMAIL)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CATEGORY)
+                </th>
+                <th></th>
+            </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RNC_ID_NUMBER)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CUSTOMER_NAME)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PHONE_NUMBER)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EMAIL)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CATEGORY)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }, htmlAttributes :  new {@class="btn btn-warning"}) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, htmlAttributes: new {@class = "btn btn-danger" })
+                </td>
+            </tr>
+        }
+        </table>
+    </div>
+    

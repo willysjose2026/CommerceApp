@@ -1,0 +1,17 @@
+﻿
+.home_pic img {
+    width: 100px;
+    height: 100px;
+}
+
+.home_pic a {
+    text-decoration: none;
+    color: black;
+    transition: 0.2s;
+}
+
+.home_pic a:hover {
+        text-decoration: none;
+        color: white;
+}
+

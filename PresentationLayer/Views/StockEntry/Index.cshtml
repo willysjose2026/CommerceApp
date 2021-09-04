@@ -1,0 +1,70 @@
+﻿@model IEnumerable<EntityLayer.DTO.Stock_EntryDTO>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js" integrity="sha512-YHQNqPhxuCY2ddskIbDlZfwY6Vx3L3w9WRbyJCY81xpqLmrM6rL2+LocBgeVHwGY9SXYfQWJ+lcEWx1fKS2s8A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="~/Scripts/Filters.js"></script>
+<script src="//cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
+
+
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand">Listado de Entradas</a>
+        </div>
+    </nav>
+
+
+<br>
+        <br>
+<div class="container">
+    <div class="d-flex justify-content-left">
+    
+    <div class="row">
+        <div class="col-md-4">
+            @Html.ActionLink("Registrar Entrada", "Create", null, htmlAttributes: new { @class = "btn btn-dark" })
+        </div>
+        <div class="col-md-4">
+            <input type="text" class="form-control" id="productName" name="productName" value="" placeholder="Digite nombre del producto">
+        </div>
+        <!--<div class="col-md-3">
+            <!--droodown supplier here
+        </div>-->
+        <div class="col-md-4">
+            <input type="date" class="form-control" id="entryDate" name="entryDate" value="" placeholder="Digite nombre del producto">
+        </div>
+    </div>
+</div>
+<br>
+<hr>
+<table class="table" id="StockEntryHistory">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PRODUCT_NAME)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UNIT_PRICE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SUPPLIER_NAME)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.QUANTITY)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ENTRY_DATE)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+</table>
+
+<!--<link href="//cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css" rel="stylesheet" />-->
+
+@section scripts
+    {
+
+
+}

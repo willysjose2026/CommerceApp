@@ -1,0 +1,185 @@
+﻿@model Tuple<IEnumerable<SelectListItem>, IEnumerable<SelectListItem>>
+@{
+    ViewBag.Title = "Index";
+}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js" integrity="sha512-YHQNqPhxuCY2ddskIbDlZfwY6Vx3L3w9WRbyJCY81xpqLmrM6rL2+LocBgeVHwGY9SXYfQWJ+lcEWx1fKS2s8A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="~/Scripts/sales.js"></script>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid px-5 d-flex justify-content-between">
+        <a class="navbar-brand" href="#">Proceso de Ventas</a>
+        <input data-bs-toggle="modal" data-bs-backdrop="static" data-bs-keydrop="false" data-bs-target="#BillingModal" type="button" value="Facturar" id="Billing" name="Billing" class="btn btn-primary">
+    </div>
+</nav>
+
+<div class="container-lg ">
+    <div class="container mt-3">
+        <h5>Seleccion del cliente:</h5>
+        <hr>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="">Clientes:</label>
+                    @Html.DropDownList("customer", new SelectList(Model.Item1, "value", "Text"), htmlAttributes: new { @class = "form-control", @id = "customer" })
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="txtTotal">Suscripcion: </label>
+                    <input type="text" style="text-align: right;" readonly="readonly"  name="txtSuscription" id="txtSuscription" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="txtTotal">Subtotal: </label>
+                    <input type="number" style="text-align: right;" readonly="readonly" value="0.00" name="txtTotal" id="txtTotal" class="form-control">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+
+<div class="container-lg">
+    <div class="container">
+
+        <h5>Seleccion de productos:</h5>
+        <hr>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="">Productos: </label>
+                    @Html.DropDownList("product", new SelectList(Model.Item2, "value", "Text"), htmlAttributes: new { @class = "form-control", @id = "product" })
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="txtUnitMeasure">Unidad:</label>
+                    <input type="text" style="text-align: right;" readonly="readonly" name="txtUnitMeasure" id="txtUnitMeasure" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="txtUnitPrice">Precio x Unidad:</label>
+                    <input type="number" style="text-align: right;" readonly="readonly" value="0.00" name="txtUnitPrice" id="txtUnitPrice" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="txtQuantity">Cantidad:</label>
+                    <input type="number" style="text-align: right;" value="00" name="txtQuantity" id="txtQuantity" class="form-control">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="availability">Cantidad Disponible:</label>
+                    <input type="number" value="00" readonly="readonly" style="text-align: right;" name="txtAvailability" id="txtAvailability" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="subtotal">Descuento:</label>
+                    <input type="number" value="0.00" readonly="readonly" style="text-align: right;" name="txtProductDiscount" id="txtProductDiscount" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="subtotal">SubTotal:</label>
+                    <input type="number" value="0.00" readonly="readonly" style="text-align: right;" name="txtSubtotal" id="txtSubtotal" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-2 mt-4">
+                <label for=""></label>
+                <input type="button" value="Añadir a Compra" id="AddItem"  name="AddItem" class="btn btn-success">
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<div class="container-lg">
+    <div class="container">
+        <h5>Listado de compra</h5>
+        <hr>
+        <table class="table table-hover" id="productTable">
+            <thead>
+                <tr>
+                    <th hidden>
+                        ItemId
+                    </th>
+                    <th>Producto</th>
+                    <th>Unidad</th>
+                    <th>Precio x Unidad</th>
+                    <th>Cantidad</th>
+                    <th>Subtotal</th>
+                    <th>Descuento</th>
+                    <th>Total</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+
+        </table>
+    </div>
+</div>
+
+
+<div class="modal fade" role="dialog" id="BillingModal" data-bs-backdrop="static">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-success" style="color: white;">
+        <h5 class="modal-title">Factura Total</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-backdrop="static" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <div class="row container mx-auto">
+              <h4 style="text-align: center;" id="customerName"></h4>
+          </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <label for="">Subtotal:</label>
+            </div>
+            <div class="col-sm-6">
+                <input type="number" style="text-align: right;" readonly="readonly" value="0.00" name="billSubtotal" id="billSubtotal" class="form-control">
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-6">
+                <label for="">Descuento:</label>
+            </div>
+            <div class="col-sm-6">
+                <input type="number" style="text-align: right;" readonly="readonly" value="0.00" name="totalDiscount" id="totalDiscount" class="form-control">
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-6">
+                <label for="">ITBIS:</label>
+            </div>
+            <div class="col-sm-6">
+                <input type="number" style="text-align: right;" readonly="readonly" value="0.00" name="billITBIS" id="billITBIS" class="form-control">
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-6">
+                <label for="">Total a pagar:</label>
+            </div>
+            <div class="col-sm-6">
+                <input type="number" style="text-align: right;" readonly="readonly" value="0.00" name="billTotal" id="billTotal" class="form-control">
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="CheckIn">Facturar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="~/Content/js/cloneForm.js">
+</script>
+

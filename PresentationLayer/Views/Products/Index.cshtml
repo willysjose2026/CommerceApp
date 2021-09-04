@@ -1,0 +1,61 @@
+﻿@model IEnumerable<EntityLayer.PRODUCT>
+
+@{
+    ViewBag.Title = "Productos";
+}
+
+
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand">Catalogo de productos</a>
+            <form class="d-flex" action="/Products/Search">
+                <input class="form-control me-2" type="search" name="customer_name" placeholder="Buscar producto" aria-label="Search">
+                <button class="btn btn-dark" type="submit">Buscar</button>
+            </form>
+        </div>
+    </nav>
+    <div class="container-lg">
+        <br>
+        <br>
+        <div class="d-flex justify-content-left">
+            <div class="row">
+                <br>
+                @Html.ActionLink("Añadir Producto", "Create", null, htmlAttributes: new { @class = "btn btn-dark" })
+            </div>
+            
+        </div>
+<br>
+        <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PRODUCT_NAME)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UNIT_PRICE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UNIT_MEASUREMENT)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PRODUCT_NAME)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UNIT_PRICE)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UNIT_MEASUREMENT)
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "Edit", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-warning" }) |
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-danger" })
+                </td>
+            </tr>
+        }
+    </table>
+    </div>

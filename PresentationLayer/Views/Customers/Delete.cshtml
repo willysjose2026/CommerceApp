@@ -1,0 +1,102 @@
+﻿@model EntityLayer.CUSTOMER
+
+@{
+    ViewBag.Title = "Eliminar Cliente";
+}
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid px-5 d-flex justify-content-between">
+        <a class="navbar-brand" href="#">Eliminar Cliente</a>
+    </div>
+</nav>
+<div class="container-lg mx-auto">
+    
+    <div class="container">
+        <h3>¿Esta seguro de eliminar ha este cliente?</h3>    
+    </div>
+        
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+
+
+            <div class="row">
+                <div class="col-md-4">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.RNC_ID_NUMBER)
+                    </dt>
+                </div>
+                <div class="col-md-4">
+                    <dd>
+                        @Html.DisplayFor(model => model.RNC_ID_NUMBER)
+                    </dd>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.CUSTOMER_NAME)
+                    </dt>
+                </div>
+                <div class="col-md-4">
+                    <dd>
+                        @Html.DisplayFor(model => model.CUSTOMER_NAME)
+                    </dd>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.PHONE_NUMBER)
+                    </dt>
+                </div>
+                <div class="col-md-4">
+                    <dd>
+                        @Html.DisplayFor(model => model.PHONE_NUMBER)
+                    </dd>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.EMAIL)
+                    </dt>
+                </div>
+                <div class="col-md-4">
+                    <dd>
+                        @Html.DisplayFor(model => model.EMAIL)
+                    </dd>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.CATEGORY)
+                    </dt>
+                </div>
+                <div class="col-md-4">
+                    <dd>
+                        @Html.DisplayFor(model => model.CATEGORY)
+                    </dd>
+                </div>
+            </div>
+
+
+        @using (Html.BeginForm()) {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Eliminar" class="btn btn-danger" /> |
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+    }
+    </div>
+</div>
+  
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+

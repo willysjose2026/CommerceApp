@@ -1,0 +1,63 @@
+﻿@model IEnumerable<EntityLayer.DTO.StockDTO>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand">Productos en Existencia</a>
+        </div>
+    </nav>
+
+
+<br>
+<br>
+
+<div class="container">
+    <div class="d-flex justify-content-left">
+    
+    <div class="row">
+        <div class="col-md-6">
+            @Html.ActionLink("Registrar Entrada", "/StockEntry/Create", null, htmlAttributes: new { @class = "btn btn-dark" })
+        </div>
+    </div>
+</div>
+<br>
+<hr>
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayName("Codigo")
+            </th>
+            <th>
+                @Html.DisplayName("Producto")
+            </th>
+            <th>
+                @Html.DisplayName("Cantidad")
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PRODUCT_ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PRODUCT_NAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QUANTITY)
+            </td>
+            @*<td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>*@
+        </tr>
+    }
+    
+    </table>

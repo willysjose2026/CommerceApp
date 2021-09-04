@@ -1,0 +1,14 @@
+D:\ITLA\PG II\FacturacionApp\EntityLayer\bin\Debug\EntityLayer.dll.config
+D:\ITLA\PG II\FacturacionApp\EntityLayer\bin\Debug\EntityLayer.dll
+D:\ITLA\PG II\FacturacionApp\EntityLayer\bin\Debug\EntityLayer.pdb
+D:\ITLA\PG II\FacturacionApp\EntityLayer\bin\Debug\EntityFramework.dll
+D:\ITLA\PG II\FacturacionApp\EntityLayer\bin\Debug\EntityFramework.SqlServer.dll
+D:\ITLA\PG II\FacturacionApp\EntityLayer\bin\Debug\EntityFramework.xml
+D:\ITLA\PG II\FacturacionApp\EntityLayer\bin\Debug\EntityFramework.SqlServer.xml
+D:\ITLA\PG II\FacturacionApp\EntityLayer\obj\Debug\EntityLayer.csproj.CoreCompileInputs.cache
+D:\ITLA\PG II\FacturacionApp\EntityLayer\obj\Debug\EntityLayer.csproj.CopyComplete
+D:\ITLA\PG II\FacturacionApp\EntityLayer\obj\Debug\EntityLayer.dll
+D:\ITLA\PG II\FacturacionApp\EntityLayer\obj\Debug\EntityLayer.pdb
+D:\ITLA\PG II\FacturacionApp\EntityLayer\bin\Debug\AutoMapper.dll
+D:\ITLA\PG II\FacturacionApp\EntityLayer\bin\Debug\AutoMapper.xml
+D:\ITLA\PG II\FacturacionApp\EntityLayer\obj\Debug\EntityLayer.csprojAssemblyReference.cache
